@@ -10,12 +10,37 @@ function createDomElement(gameObj){
     const gameELement = document.createElement("div");
     gameELement.setAttribute("id", gameObj._id)
     gameELement.innerHTML = `<h1>${gameObj.title}</h1> 
-                        <img src="${gameObj.imageUrl}" />
-                        <p>${gameObj.description}</p> 
-                        <button class="delete-btn">Delete Game</button>
-                        <button class="update-btn">Edit Game</button>`;    
+                            <img src="${gameObj.imageUrl}" />
+                            <p>${gameObj.description}</p> 
+                            <button class="delete-btn">Delete Game</button>
+                            <button class="update-btn">Edit Game</button>`; 
+                        
+                        
+    
+    const updateGameElement = document.createElement("div");
+    updateGameElement.innerHTML = `<form class="updateForm">
+                                    <label for="gameTitle">Title *</label>
+                                    <input type="text" value="" name="gameTitle" id="gameTitle"/>
+                                    <label for="gameDescription">Description</label>
+                                    <textarea name="gameDescription" id="gameDescription"></textarea>
+                                    <label for="gameImageUrl">Image URL *</label>
+                                    <input type="text" name="gameImageUrl" id="gameImageUrl"/>
+                                    <button class="editBtn">Save Changes</button>
+                                    <button class="cancelBtn">Cancel</button>
+                                  </form>`;
+    
 
+    
     container1.appendChild(gameELement);
+
+    function clone() {
+        var itm = gameELement.childNodes[0].innerText; // itm = valoarea din gameElement - h1 
+        console.log(itm);
+        var input = updateGameElement.childNodes[0][0]; // input = valoarea din updateGame - nameGameTitle
+        input.value += itm;  // valoarea din title de la edit form
+        console.log(input.value);
+      }
+    
 
     document.getElementById(`${gameObj._id}`).addEventListener("click", function(event){
         console.log(event.target);
@@ -26,6 +51,8 @@ function createDomElement(gameObj){
             removeDeletedElementFromDOM(event.target.parentElement);
             })
         } else if(event.target.classList.contains('update-btn')){
+            gameELement.appendChild(updateGameElement);
+            clone();
             console.log('ceva');
         }
         
@@ -33,6 +60,8 @@ function createDomElement(gameObj){
       
     });
 }
+
+
 function removeDeletedElementFromDOM(domElement){
     domElement.remove();
 }

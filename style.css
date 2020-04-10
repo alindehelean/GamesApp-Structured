@@ -73,9 +73,10 @@ button {
 }
 
 .updateForm {
-    display: flex;
+    display:flex;
     flex-direction: column;
-    visibility: hidden;
+    visibility: visible;
+    border: solid 3px black;
 }
 
 .updateForm>label,
@@ -100,4 +101,8 @@ button {
     background-color: red;
     border: none;
     color: white;
+}
+
+#updateFormm {
+    display: none;
 }
