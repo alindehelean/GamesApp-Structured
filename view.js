@@ -8,22 +8,31 @@ getGamesList(function(arrayOfGames){
 function createDomElement(gameObj){
     var container1 = document.querySelector('.container');
     const gameELement = document.createElement("div");
+    gameELement.setAttribute("id", gameObj._id)
     gameELement.innerHTML = `<h1>${gameObj.title}</h1> 
                         <img src="${gameObj.imageUrl}" />
                         <p>${gameObj.description}</p> 
-                        <button class="delete-btn" id="${gameObj._id}">Delete Game</button>
-                        <button class="update-btn" id="${gameObj._id}">Edit Game</button>`;    
+                        <button class="delete-btn">Delete Game</button>
+                        <button class="update-btn">Edit Game</button>`;    
 
     container1.appendChild(gameELement);
 
     document.getElementById(`${gameObj._id}`).addEventListener("click", function(event){
-        deleteGame(event.target.getAttribute("id"), function(apiResponse){
+        console.log(event.target);
+        if(event.target.classList.contains('delete-btn')){
+            deleteGame(gameELement.getAttribute("id"), function(apiResponse){
+                console.log(event.target);
             console.log(apiResponse);
             removeDeletedElementFromDOM(event.target.parentElement);
-        })
+            })
+        } else if(event.target.classList.contains('update-btn')){
+            console.log('ceva');
+        }
+        
+
+      
     });
 }
-
 function removeDeletedElementFromDOM(domElement){
     domElement.remove();
 }
@@ -53,7 +62,7 @@ function buildErrorMessage(inputEl, errosMsg){
     const errorMsgElement = document.createElement("span");
     errorMsgElement.setAttribute("rel", inputEl.id);
     errorMsgElement.classList.add("errorMsg");
-    errorMsgElement.innerHTML = errosMsg;
+    errorMsgElement.innerHTML = errosMsg;c
     inputEl.after(errorMsgElement);
 }
 

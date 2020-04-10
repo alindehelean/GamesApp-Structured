@@ -5,34 +5,41 @@ function getGamesList(callbackFunction){
         method: "GET",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
-        }
+        } // 1. De ce este nevoie aici de headers->content-type?
     }).then(function(response){
         return response.json();
     }).then(function(arrayOfGames){
+        console.log(arrayOfGames);
         callbackFunction(arrayOfGames);
     });
 }
 
 
 function deleteGame(gameID, callbackFunction) {
+    console.log(gameID);
     fetch(apiURL + "/games/" + gameID, {
         method: "DELETE"
     }).then(function(r){
-        return r.text();
+        console.log(r);
+        return r.text(); //3. De ce .text si nu .json?
+        
     }).then(function(apiresponse){
+        
+        console.log(apiresponse);
         callbackFunction(apiresponse);
     });
 
 }
 
-function createGameRequest(gameObject, callbackCreateGame){
+function createGameRequest(gameObj, callbackCreateGame){
     fetch(apiURL + "/games", {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
         },
-        body: gameObject
+        body: gameObj //4. De ce este necesar aici si body?
     }).then(function(response){
+        console.log(response);
         return response.json();
     }).then(function(createdGame){
         console.log(createdGame);
@@ -41,18 +48,18 @@ function createGameRequest(gameObject, callbackCreateGame){
 }
 
 
-function updateGameRequest(updatedGameObj, callbackCreateGame){
-    fetch(apiURL + "/games", {
-        method: "POST",
+function updateGameRequest(gameid,updatedGameObj, callbackUpdateGame){
+    fetch(apiURL + "/games/", + gameid,  {
+        method: "PUT",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
         },
-        body: gameObject
+        body: updatedGameObj
     }).then(function(response){
         return response.json();
-    }).then(function(updatedGame){
-        console.log(updatedGame);
-        callbackCreateGame(updatedGame);
+    }).then(function(updatedResponse){
+        console.log(updatedResponse);
+        callbackUpdateGame(updatedResponse);
     });
 }
 
