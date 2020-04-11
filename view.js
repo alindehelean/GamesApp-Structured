@@ -34,11 +34,18 @@ function createDomElement(gameObj){
     container1.appendChild(gameELement);
 
     function clone() {
-        var itm = gameELement.childNodes[0].innerText; // itm = valoarea din gameElement - h1 
-        console.log(itm);
-        var input = updateGameElement.childNodes[0][0]; // input = valoarea din updateGame - nameGameTitle
-        input.value += itm;  // valoarea din title de la edit form
-        console.log(input.value);
+        const copiedGameTitle = gameELement.childNodes[0].innerText; 
+        const copiedGameDescription = gameELement.childNodes[4].innerText;
+        const copiedGameUrl = gameELement.childNodes[2].getAttribute("src");
+        //console.log(copiedGameUrl);
+        //console.log(copiedGameDescription);
+        //console.log(copiedGameTitle);
+        const newGameTitle = updateGameElement.childNodes[0][0]; 
+        newGameTitle.value += copiedGameTitle; 
+        const newGameDescription = updateGameElement.childNodes[0][1];
+        newGameDescription.value += copiedGameDescription;
+        const newImageUrl = updateGameElement.childNodes[0][2];
+        newImageUrl.value += copiedGameUrl;
       }
     
 
@@ -54,10 +61,24 @@ function createDomElement(gameObj){
             gameELement.appendChild(updateGameElement);
             clone();
             console.log('ceva');
-        }
-        
+            console.log(updateGameElement);
+        } else if(event.target.classList.contains('cancelBtn')){
+            removeDeletedElementFromDOM(updateGameElement);
+        } else if(event.target.classList.contains('editBtn')){
+            event.preventDefault();
+            const updatedGameTitle = updateGameElement.querySelector('#gameTitle').value;
+            const updatedGameDescription = updateGameElement.querySelector('#gameDescription').value;
+            const updatedGameImage = updateGameElement.querySelector('#gameImageUrl').value;
+            
+            gameELement.querySelector('h1').innerHTML = updatedGameTitle;
+            gameELement.querySelector('p').innerHTML = updatedGameDescription;
+            gameELement.querySelector('img').src = updatedGameImage;
 
-      
+            removeDeletedElementFromDOM(updateGameElement);
+            
+            
+
+        }
     });
 }
 
