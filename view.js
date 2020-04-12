@@ -15,8 +15,6 @@ function createDomElement(gameObj){
                             <button class="delete-btn">Delete Game</button>
                             <button class="update-btn">Edit Game</button>`; 
                         
-                        
-    
     const updateGameElement = document.createElement("div");
     updateGameElement.innerHTML = `<form class="updateForm">
                                     <label for="gameTitle">Title *</label>
@@ -28,9 +26,7 @@ function createDomElement(gameObj){
                                     <button class="editBtn">Save Changes</button>
                                     <button class="cancelBtn">Cancel</button>
                                   </form>`;
-    
 
-    
     container1.appendChild(gameELement);
 
     function clone() {
@@ -46,9 +42,8 @@ function createDomElement(gameObj){
         newGameDescription.value += copiedGameDescription;
         const newImageUrl = updateGameElement.childNodes[0][2];
         newImageUrl.value += copiedGameUrl;
-      }
+    }
     
-
     document.getElementById(`${gameObj._id}`).addEventListener("click", function(event){
         console.log(event.target);
         if(event.target.classList.contains('delete-btn')){
@@ -60,23 +55,31 @@ function createDomElement(gameObj){
         } else if(event.target.classList.contains('update-btn')){
             gameELement.appendChild(updateGameElement);
             clone();
-            console.log('ceva');
-            console.log(updateGameElement);
+            //console.log('ceva');
+            //console.log(updateGameElement);
         } else if(event.target.classList.contains('cancelBtn')){
             removeDeletedElementFromDOM(updateGameElement);
         } else if(event.target.classList.contains('editBtn')){
             event.preventDefault();
-            const updatedGameTitle = updateGameElement.querySelector('#gameTitle').value;
-            const updatedGameDescription = updateGameElement.querySelector('#gameDescription').value;
-            const updatedGameImage = updateGameElement.querySelector('#gameImageUrl').value;
-            
-            gameELement.querySelector('h1').innerHTML = updatedGameTitle;
-            gameELement.querySelector('p').innerHTML = updatedGameDescription;
-            gameELement.querySelector('img').src = updatedGameImage;
-
-            removeDeletedElementFromDOM(updateGameElement);
-            
-            
+    
+        const updatedGameTitle = updateGameElement.querySelector('#gameTitle').value;
+        const updatedGameDescription = updateGameElement.querySelector('#gameDescription').value;
+        const updatedGameImage = updateGameElement.querySelector('#gameImageUrl').value;
+        
+        function editedDom(){
+        gameELement.querySelector('h1').innerHTML = updatedGameTitle;
+        gameELement.querySelector('p').innerHTML = updatedGameDescription;
+        gameELement.querySelector('img').src = updatedGameImage;
+        }
+    
+        var urlEncoded = new URLSearchParams();
+        urlEncoded.append("title", updatedGameTitle);
+        urlEncoded.append("description", updatedGameDescription);
+        urlEncoded.append("imageUrl", updatedGameImage);
+         
+            updateGameRequest(gameELement.getAttribute("id"), urlEncoded,editedDom);  
+            //container1.removeChild(container1.lastChild);
+            removeDeletedElementFromDOM(updateGameElement); 
 
         }
     });
