@@ -1,7 +1,20 @@
 * {
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     box-sizing: border-box;
+}
+
+.container div{
+    margin-top: 54px;
+    border: calc(8px + 0.2vw) solid transparent;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5);
+    margin-left: 40px;
+    margin-right: 40px;
+    padding: 10px;
+}
+
+.update{
+    border: none;
 }
 
 .delete-btn {
@@ -24,10 +37,14 @@
 
 .submitBtn {
     width: 100px;
-    height: 20px;
+    height: 30px;
     background-color: green;
     border: none;
     color: white;
+    margin-left: auto;
+    margin-right: auto;
+    
+
 }
 
 img {
@@ -45,11 +62,16 @@ h1 {
 
 button {
     margin: 10px;
+    border-radius: 5%;
 }
 
 .creationForm {
     display: flex;
     flex-direction: column;
+    border: calc(8px + 0.2vw) solid transparent;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5);
+    margin: 50px 50px;
+
 }
 
 .creationForm>label,
@@ -58,7 +80,7 @@ button {
 .creationForm>select
  {
     display: block;
-    margin: 5px 10px;
+    margin: 5px 40px;
 }
 
 .inputError {
@@ -75,8 +97,9 @@ button {
 .updateForm {
     display:flex;
     flex-direction: column;
-    visibility: visible;
-    border: solid 3px black;
+
+    margin: 5px 4px;
+
 }
 
 .updateForm>label,
@@ -93,6 +116,8 @@ button {
     background-color: green;
     border: none;
     color: white;
+    margin-left: auto;
+  margin-right: auto;
 }
 
 .cancelBtn{
@@ -101,6 +126,8 @@ button {
     background-color: red;
     border: none;
     color: white;
+    margin-left: auto;
+  margin-right: auto;
 }
 
 #updateFormm {

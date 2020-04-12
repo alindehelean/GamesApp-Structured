@@ -16,6 +16,7 @@ function createDomElement(gameObj){
                             <button class="update-btn">Edit Game</button>`; 
                         
     const updateGameElement = document.createElement("div");
+    updateGameElement.setAttribute("class","update");
     updateGameElement.innerHTML = `<form class="updateForm">
                                     <label for="gameTitle">Title *</label>
                                     <input type="text" value="" name="gameTitle" id="gameTitle"/>
@@ -29,7 +30,7 @@ function createDomElement(gameObj){
 
     container1.appendChild(gameELement);
 
-    function clone() {
+    function clone(gameELement,updateGameElement) {
         const copiedGameTitle = gameELement.childNodes[0].innerText; 
         const copiedGameDescription = gameELement.childNodes[4].innerText;
         const copiedGameUrl = gameELement.childNodes[2].getAttribute("src");
@@ -43,7 +44,7 @@ function createDomElement(gameObj){
         const newImageUrl = updateGameElement.childNodes[0][2];
         newImageUrl.value += copiedGameUrl;
     }
-    
+
     document.getElementById(`${gameObj._id}`).addEventListener("click", function(event){
         console.log(event.target);
         if(event.target.classList.contains('delete-btn')){
@@ -54,7 +55,7 @@ function createDomElement(gameObj){
             })
         } else if(event.target.classList.contains('update-btn')){
             gameELement.appendChild(updateGameElement);
-            clone();
+            clone(gameELement,updateGameElement);
             //console.log('ceva');
             //console.log(updateGameElement);
         } else if(event.target.classList.contains('cancelBtn')){
@@ -78,7 +79,6 @@ function createDomElement(gameObj){
         urlEncoded.append("imageUrl", updatedGameImage);
          
             updateGameRequest(gameELement.getAttribute("id"), urlEncoded,editedDom);  
-            //container1.removeChild(container1.lastChild);
             removeDeletedElementFromDOM(updateGameElement); 
 
         }

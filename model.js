@@ -5,7 +5,7 @@ function getGamesList(callbackFunction){
         method: "GET",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
-        } // 1. De ce este nevoie aici de headers->content-type?
+        } 
     }).then(function(response){
         return response.json();
     }).then(function(arrayOfGames){
@@ -21,7 +21,7 @@ function deleteGame(gameID, callbackFunction) {
         method: "DELETE"
     }).then(function(r){
         console.log(r);
-        return r.text(); //3. De ce .text si nu .json?
+        return r.text(); 
         
     }).then(function(apiresponse){
         
@@ -37,7 +37,7 @@ function createGameRequest(gameObj, callbackCreateGame){
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
         },
-        body: gameObj //4. De ce este necesar aici si body?
+        body: gameObj 
     }).then(function(response){
         console.log(response);
         return response.json();
